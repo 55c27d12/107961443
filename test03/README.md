@@ -12,8 +12,8 @@ output = json
 ~/.aws/credentials
 ```
 [tech_test]
-aws_access_key_id = AKIA4RHWGGR7SFSGOQ4B
-aws_secret_access_key = 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
+aws_access_key_id = ACCESS_KEY
+aws_secret_access_key = SECRET_KEY
 ```
 Please ensure terraform installed on the machine.
 https://learn.hashicorp.com/tutorials/terraform/install-cli
