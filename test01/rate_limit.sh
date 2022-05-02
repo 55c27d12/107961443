@@ -29,7 +29,7 @@ parse_file(){
 }
 # function for generating count-timestamp file for condition 3
 parse_login_file(){
-        cat $FILE 2> /dev/null | grep "login" | get_timestamp | uniq -c > tmp_login_stat.txt
+	cat $FILE 2> /dev/null | grep "login" | get_timestamp | uniq -c > tmp_login_stat.txt
 }
 
 # main function to process the temp input file
@@ -95,7 +95,7 @@ process_file(){
 				CON1=1
 			else # if time duration longer than condition
 				ARRCOUNT1=("${ARRCOUNT1[@]:1}")
-			        ARRTIME1=("${ARRTIME1[@]:1}")
+				ARRTIME1=("${ARRTIME1[@]:1}")
 			fi
 			# break the while loop if matched time constraint
 			if [ ${CON1} -ne 0 ]; then
@@ -107,7 +107,7 @@ process_file(){
 		CON2=0
 		while : ; do
 			# sum of requests
-	                SUM2=$(IFS=+; echo "$((${ARRCOUNT2[*]}))")
+			SUM2=$(IFS=+; echo "$((${ARRCOUNT2[*]}))")
 
 			# if it is the first request
 			if [ -z ${ARRTIME2[0]} ] ; then
@@ -116,23 +116,23 @@ process_file(){
 				DUR2=$(( ${TIMESTAMP}-${ARRTIME2[0]} ))
 			fi
 	
-	                if [ ${DUR2} -le 600 ] ; then
+			if [ ${DUR2} -le 600 ] ; then
 				# if match condition
-	                        if [ ${SUM2} -ge 100 ] ; then
+				if [ ${SUM2} -ge 100 ] ; then
 					RELEASETIME=$(( ${TIMESTAMP}+3601 ))
-	                                echo "${TIMESTAMP} ${SUM2} BAN2 ${RELEASETIME} ${IP}" >> tmp_output.txt
+					echo "${TIMESTAMP} ${SUM2} BAN2 ${RELEASETIME} ${IP}" >> tmp_output.txt
 					unset RELEASETIME
-	                        fi
-	                        CON2=1
-	                else # if time duration longer than condition
-	                        ARRCOUNT2=("${ARRCOUNT2[@]:1}")
-	                        ARRTIME2=("${ARRTIME2[@]:1}")
-	                fi
+				fi
+				CON2=1
+			else # if time duration longer than condition
+				ARRCOUNT2=("${ARRCOUNT2[@]:1}")
+				ARRTIME2=("${ARRTIME2[@]:1}")
+			fi
 			# break the while loop if matched time constraint
-	                if [ ${CON2} -ne 0 ]; then
-	                        break
-	                fi
-	        done
+			if [ ${CON2} -ne 0 ]; then
+				break
+			fi
+		done
 	done < tmp_stat.txt	
 	unset COUNT TIMESTAMP
 	
@@ -182,30 +182,30 @@ process_file(){
 	if [ -f tmp_output.txt ] ; then
 		cat tmp_output.txt | sort -n > tmp_output_sort.txt
 		BANNED=0
-	        RELEASEUNTIL=0
-	        COUNTLINENUM=$( cat tmp_output_sort.txt | wc -l )
-	        COUNTLINE=0
-	        while read TIMESTAMP SUM BAN RELEASETIME IP; do
+		RELEASEUNTIL=0
+		COUNTLINENUM=$( cat tmp_output_sort.txt | wc -l )
+		COUNTLINE=0
+		while read TIMESTAMP SUM BAN RELEASETIME IP; do
 			# if non-ban, then ban it
-	                if [ ${BANNED} -eq 0 ] ; then
-	                        BANNED=1
-	                        echo "${TIMESTAMP},BAN,${IP}" >> tmp_output_full.txt
-	                        RELEASEUNTIL=${RELEASETIME}
-	                else
+			if [ ${BANNED} -eq 0 ] ; then
+				BANNED=1
+				echo "${TIMESTAMP},BAN,${IP}" >> tmp_output_full.txt
+				RELEASEUNTIL=${RELEASETIME}
+			else
 				# if exceed releasetime 
-	                        if [ ${RELEASEUNTIL} -lt ${TIMESTAMP} ] ; then
-	                                echo "${RELEASEUNTIL},UNBAN,${IP}" >> tmp_output_full.txt
-	                                BANNED=0
-	                        else # not reached releasetime, keep ban and extend releasetime
-	                                RELEASEUNTIL=${RELEASETIME}
-	                        fi
-	                fi
-	                COUNTLINE=$(( ${COUNTLINE}+1 ))
+				if [ ${RELEASEUNTIL} -lt ${TIMESTAMP} ] ; then
+					echo "${RELEASEUNTIL},UNBAN,${IP}" >> tmp_output_full.txt
+					BANNED=0
+				else # not reached releasetime, keep ban and extend releasetime
+					RELEASEUNTIL=${RELEASETIME}
+				fi
+			fi
+			COUNTLINE=$(( ${COUNTLINE}+1 ))
 			# if it is the last line of record
-	                if [ ${COUNTLINE} -eq ${COUNTLINENUM} ] && [ ${BANNED} -eq 1 ] ; then
-	                        echo "${RELEASEUNTIL},UNBAN,${IP}" >> tmp_output_full.txt
-	                fi
-	        done < tmp_output_sort.txt
+			if [ ${COUNTLINE} -eq ${COUNTLINENUM} ] && [ ${BANNED} -eq 1 ] ; then
+				echo "${RELEASEUNTIL},UNBAN,${IP}" >> tmp_output_full.txt
+			fi
+		done < tmp_output_sort.txt
 	fi
 	
 	# clean up the env
@@ -241,7 +241,7 @@ if [ -f tmp_output_full.txt ] ; then
 	rm tmp_output_full.txt
 fi
 if [ -f tmp_input.txt ] ; then
-        rm tmp_input.txt
+	rm tmp_input.txt
 fi
 
 
