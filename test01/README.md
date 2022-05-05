@@ -42,9 +42,6 @@ sys	1m31.402s
 [1546293527,UNBAN,210.133.208.189] has 60 sec difference with model answer [1546293587,UNBAN,210.133.208.189]
 
 Analysis:
-```
-Timestamp=1546286326,no.of /login requests past 10 min=3,BAN for 2 hour,Release time=1546293527,IP=210.133.208.189
-```
 BAN time from the above result is 01/Jan/2019:03:58:46 +0800.
 
 If we use ban for 2 hours to calculate model answer BAN time. It should be 01/Jan/2019:03:59:46 +0800. However, there is no such request on raw logs. We can only find 01/Jan/2019:03:58:46 +0800 request from 210.133.208.189.
@@ -61,9 +58,6 @@ If we use ban for 2 hours to calculate model answer BAN time. It should be 01/Ja
 [1546301068,UNBAN,221.17.254.20] has 2 sec difference with model answer [1546301070,UNBAN,221.17.254.20]
 
 Analysis:
-```
-Timestamp=1546297467,no.of requests past 10 min=11,BAN for 1 hour,Release time=1546301068,IP=221.17.254.20
-```
 BAN time from the above result is 01/Jan/2019:07:04:27 +0800.
 
 If we use ban for 1 hours to calculate model answer BAN time. It should be 01/Jan/2019:07:04:29 +0800. However, there is no such request on raw logs. We can only find 01/Jan/2019:07:04:27 +0800 request from 221.17.254.20.
