@@ -1,11 +1,7 @@
 #! /bin/bash
 
 NAME=$1
-if [ ${NAME} != "test02-lab" ] ; then 
-	read -p "Please provide the ssh private key path: " KEY
-else 
-	KEY="ec2-access-key.pem"
-fi
+KEY="tf-test02-ec2-key.pem"
 
 IP=$( aws ec2 describe-instances --filters "Name=tag:Name,Values=${NAME}" --profile tech_test --query "Reservations[*].Instances[*].PublicIpAddress" --output text)
 
@@ -15,7 +11,7 @@ else
 	if [ -f ${KEY} ] ; then
         	ssh -i ${KEY} ec2-user@${IP}
 	else
-        	echo "Cound not locate the ssh private key."
+        	echo "Cound not locate the ssh private key. Please replace ssh key in Bash."
 	fi
 fi
 

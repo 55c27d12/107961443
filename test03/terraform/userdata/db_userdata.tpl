@@ -11,13 +11,14 @@ cat <<EOF > /home/ec2-user/docker-compose.yml
 version: '3.1'
 
 services:
-  shorten-url:
-    image: ixwongit/shorten-url:v0.1
-    ports:
-      - "5000:5000"
-    environment:
-      MONGOURL: mongodb://root:password@${terraform_db_host}:27017/test?authSource=admin
-      BASEURL: http://${terraform_webapp_alb_url}
+  mongo:
+    image: mongo
     restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: test
 EOF
 docker-compose -f /home/ec2-user/docker-compose.yml up -d
