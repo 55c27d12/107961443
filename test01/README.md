@@ -75,10 +75,6 @@ If we use ban for 1 hours to calculate model answer BAN time. It should be 01/Ja
 ### Limitation
 The reason why I choose bash script is because I usually use bash script for Linux operation. But Bash script is not good to handle complex logic requirment. However, it is good for automation scripting or startup script for userdata.
 
-### Remark
-I have attached the debug log to a file called execution.log
-
-
 ### Contributor 
 
 Ivan Wong (2022-May-5)
